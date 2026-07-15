@@ -30,7 +30,10 @@ struct PaywallView: View {
                         if purchaseManager.isPro { dismiss() }
                     }
                 } label: {
-                    Text(purchaseManager.product?.displayPrice.map { "Upgrade — \($0)" } ?? "Upgrade — $2.99 one-time")
+                    Text(verbatim: {
+                        if let price = purchaseManager.product?.displayPrice { return "Upgrade — \(price)" }
+                        return "Upgrade — $2.99 one-time"
+                    }())
                         .font(Theme.bodyFont.weight(.bold))
                         .frame(maxWidth: .infinity)
                         .padding()
